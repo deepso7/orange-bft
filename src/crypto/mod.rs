@@ -1,14 +1,19 @@
-use crate::types::Signature;
+use ed25519_dalek::{Signature, Verifier, VerifyingKey};
 
-struct PrivateKey;
-struct PublicKey;
+use crate::error::Result;
 
-fn sign(data: &[u8], private_key: &PrivateKey) -> Signature {
-    // Sign data with private key
-    todo!()
-}
+pub mod keypair;
 
-fn verify(signature: &Signature, data: &[u8], public_key: &PublicKey) -> bool {
-    // Verify signature
-    todo!()
+pub fn verify_msg(public_key: String, message: String, signature: String) -> Result<bool> {
+    let public_key_bytes = hex::decode(public_key)?;
+    let signature_bytes = hex::decode(signature)?;
+    let message_bytes = message.as_bytes();
+
+    let verifying_key: VerifyingKey =
+        VerifyingKey::from_bytes(public_key_bytes.as_slice().try_into()?)?;
+    let sig = Signature::from_bytes(signature_bytes.as_slice().try_into()?);
+
+    let valid = verifying_key.verify(&message_bytes, &sig).is_ok();
+
+    Ok(valid)
 }

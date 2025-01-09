@@ -1,6 +1,6 @@
 #![allow(warnings)]
 
-use crypto::{keypair::Keypair, verify_msg};
+use crypto::{keypair::Keypair, verifier::verify_msg};
 use ed25519_dalek::{ed25519::signature::SignerMut, SigningKey, Verifier, VerifyingKey};
 use error::Result;
 use rand::{rngs::OsRng, Rng};

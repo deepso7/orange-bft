@@ -37,15 +37,6 @@ impl Block {
     }
 }
 
-// Vote message
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Vote {
-    pub block_hash: String,
-    // pub key of node
-    pub voter: String,
-    pub signature: Vec<u8>,
-}
-
 // Finalize message
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Finalize {

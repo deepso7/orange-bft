@@ -11,6 +11,7 @@ use rand::{rngs::OsRng, Rng};
 mod consensus;
 mod crypto;
 mod error;
+mod transport;
 mod types;
 
 fn main() -> Result<()> {

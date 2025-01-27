@@ -1,3 +1,5 @@
+mod node;
+
 use crate::{
     error::Result,
     types::{Block, QuorumCertificate},

@@ -1,4 +1,5 @@
 use ed25519_dalek::{ed25519::signature::SignerMut, SigningKey, VerifyingKey};
+use iroh::SecretKey;
 use rand::rngs::OsRng;
 
 pub struct Keypair {
@@ -34,5 +35,12 @@ impl Keypair {
 
     pub fn publicKey(&self) -> String {
         self.publicKey.to_string()
+    }
+
+    // TODO: fn for initiating iroh with same keys, not sure about the impl
+    pub fn secretKey(&self) -> SecretKey {
+        let secret_key_bytes = self.signing_key.to_bytes();
+
+        SecretKey::from_bytes(&secret_key_bytes)
     }
 }

@@ -4,7 +4,12 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+data-encoding = "2.7.0"
 ed25519-dalek = { version = "2", features = ["rand_core"] }
 hex = "0.4.3"
+iroh = "0.31.0"
+iroh-gossip = "0.31.0"
+postcard = { version = "1.1.1", features = ["use-std"] }
 rand = "0.8.5"
 serde = { version = "1.0.216", features = ["derive"] }
+tokio = { version = "1.43.0", features = ["full"] }

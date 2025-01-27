@@ -7,7 +7,7 @@ pub struct Keypair {
     verifying_key: VerifyingKey,
 
     // hex pub key
-    publicKey: String,
+    public_key: String,
 }
 
 // constructor
@@ -22,7 +22,7 @@ impl Keypair {
         Self {
             signing_key,
             verifying_key,
-            publicKey: public_key_hex,
+            public_key: public_key_hex,
         }
     }
 }
@@ -34,7 +34,7 @@ impl Keypair {
     }
 
     pub fn publicKey(&self) -> String {
-        self.publicKey.to_string()
+        self.public_key.to_string()
     }
 
     // TODO: fn for initiating iroh with same keys, not sure about the impl

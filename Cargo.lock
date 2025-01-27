@@ -2362,6 +2362,7 @@ dependencies = [
  "postcard",
  "rand",
  "serde",
+ "serde_json",
  "tokio",
 ]
 

@@ -5,6 +5,7 @@ use iroh_gossip::{
     net::{Gossip, GossipReceiver, GossipSender, GOSSIP_ALPN},
     proto::TopicId,
 };
+use serde::{Deserialize, Serialize};
 
 use crate::{crypto::keypair::Keypair, error::Result};
 
@@ -13,11 +14,14 @@ use super::ticket::Ticket;
 pub struct Flock {
     ticket: Ticket,
 
+    router: Router,
+
     sender: GossipSender,
     receiver: GossipReceiver,
 }
 
 impl Flock {
+    // init func
     pub async fn init(keys: Keypair, ticket: String) -> Result<Self> {
         let endpoint = Endpoint::builder()
             .secret_key(keys.secretKey())
@@ -40,8 +44,27 @@ impl Flock {
 
         Ok(Self {
             ticket: t,
+            router,
             sender,
             receiver,
         })
     }
+
+    pub async fn shutdown(&self) -> Result<()> {
+        self.router.shutdown().await?;
+        Ok(())
+    }
+
+    pub async fn send(&self, data: BroadcastData) -> Result<()> {
+        let d = serde_json::to_string(&data)?;
+
+        self.sender
+            .broadcast(postcard::to_stdvec(&d)?.into())
+            .await?;
+
+        Ok(())
+    }
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+struct BroadcastData {}

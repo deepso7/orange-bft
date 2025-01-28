@@ -2,6 +2,7 @@ use ed25519_dalek::{ed25519::signature::SignerMut, SigningKey, VerifyingKey};
 use iroh::SecretKey;
 use rand::rngs::OsRng;
 
+#[derive(Clone)]
 pub struct Keypair {
     signing_key: SigningKey,
     verifying_key: VerifyingKey,
